@@ -17,13 +17,13 @@ api = tweepy.API(auth)
 api.update_status("NOW MONITORING RAYSOLES SHOP" + " (" + str(randint(1, 200)) + ")")
 
 while True:
-    r1 = requests.get("https://raysoles.org/")
+    r1 = requests.get("https://raysoles.org/shop")
     data1 = r1.text
     soup1 = BeautifulSoup(data1, "html.parser")
 
     time.sleep(t)
 
-    r2 = requests.get("https://raysoles.org/")
+    r2 = requests.get("https://raysoles.org/shop")
     data2 = r2.text
     soup2 = BeautifulSoup(data2, "html.parser")
 
@@ -31,10 +31,41 @@ while True:
         print("No new items!")
     else:
         print("RAY SOLES SHOP UPDATED!!")
-        d = difflib.Differ()
-        diff = d.compare(soup1, soup2)
-        api.update_status("(" + str(randint(1, 200)) + ")" + " New item detected: http://raysoles.org ")
+        web = requests.get("http://raysoles.org/shop")
+        soup = BeautifulSoup(web.content, "html.parser")
+        #links = soup.find_all("a")
 
+        for tag in soup.find_all('a', {'class': 'woocommerce-LoopProduct-link'}, href=True):
+            products = tag['href']
+            print(products)
+
+        r3 = requests.get(products)
+        data3 = r3.text
+        soup3 = BeautifulSoup(data3, "html.parser")
+
+        for tag in soup3.find_all(class_="product"):
+            print(tag.get('id'))
+
+            id = (tag.get('id'))[8:]
+
+        title = soup3.title.string
+        cart = "http://raysoles.org/cart/?add-to-cart=" + id
+        print(cart)
+        print(title)
+
+        api.update_status("New item: " + title + ". Add to cart: " + cart + " (" + str(randint(1, 300)) + ")")
+
+        #for link in links:
+            #print("<a href='%s'>%s</a>)" % (link.get("href"), link.text))
+
+        #item_data = soup.find_all("ul", {"class": "products"})
+
+        #print(item_data)
+
+
+
+
+        
 
 
 
