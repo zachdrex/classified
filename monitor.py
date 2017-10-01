@@ -48,12 +48,12 @@ while True:
 
             id = (tag.get('id'))[8:]
 
-        title = soup3.title.string
-        cart = "http://raysoles.org/cart/?add-to-cart=" + id
-        print(cart)
-        print(title)
+            title = soup3.title.string
+            cart = "http://raysoles.org/cart/?add-to-cart=" + id
+            print(cart)
+            print(title)
 
-        api.update_status("New item: " + title + ". Add to cart: " + cart + " (" + str(randint(1, 300)) + ")")
+            api.update_status("New item: " + title + ". Add to cart: " + cart + " (" + str(randint(1, 300)) + ")")
 
         #for link in links:
             #print("<a href='%s'>%s</a>)" % (link.get("href"), link.text))

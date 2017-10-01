@@ -1,8 +1,10 @@
 from random import *
 
+import time
 from bs4 import BeautifulSoup
 import requests
 import tweepy
+from oauthlib.uri_validate import query
 
 auth = tweepy.OAuthHandler("1ueacMqiMRFtgiB31g0e9BYbm", "pjP9FsGIE3qfTXBNTe1WDeqhaNUvASQgJPBfUTf5GLYIbWzbHM")
 auth.set_access_token("820756909166919684-UawRTAQM7CBmploaO0WHOysrNmEr81e", "b2tGu4DyWGX8OmetEF7RYQfE4aPsktpg92nS1owMdvzVW")
@@ -36,12 +38,14 @@ for tag in soup.find_all('a', {'class':'woocommerce-LoopProduct-link'}, href=Tru
     for tag in soup2.find_all(class_="product"):
         print(tag.get('id'))
 
-id = (tag.get('id'))[8:]
 
-title = soup2.title.string
-cart = "http://raysoles.org/cart/?add-to-cart=" + id
-print(cart)
-print(title)
+        id = (tag.get('id'))[8:]
 
-api.update_status("New item: " + title + ". Add to cart: " + cart + " (" +str(randint(1,300)) + ")")
+        title = soup2.title.string
+        cart = "http://raysoles.org/cart/?add-to-cart=" + id
+        print(cart)
+        print(title)
+
+        api.update_status("New item: " + title + ". Add to cart: " + cart + " (" +str(randint(1,300)) + ")")
+
 
