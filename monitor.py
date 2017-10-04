@@ -43,24 +43,29 @@ while True:
         data3 = r3.text
         soup3 = BeautifulSoup(data3, "html.parser")
 
-        for tag in soup3.find_all(class_="product"):
-            print(tag.get('id'))
+        for tag in soup.find_all('a', {'class': 'woocommerce-LoopProduct-link'}, href=True):
+            products = tag['href']
+            print(products)
 
-            id = (tag.get('id'))[8:]
+            # api.update_status("(" + str(randint(1, 300)) + ")" + " New item detected: " + products)
 
-            title = soup3.title.string
-            cart = "http://raysoles.org/cart/?add-to-cart=" + id
-            print(cart)
-            print(title)
+            r3 = requests.get(products)
+            data3 = r3.text
+            soup3 = BeautifulSoup(data1, "html.parser")
 
-            api.update_status("New item: " + title + ". Add to cart: " + cart + " (" + str(randint(1, 300)) + ")")
+            for tag in soup3.find_all(class_="product"):
+                print(tag.get('id'))
 
-        #for link in links:
-            #print("<a href='%s'>%s</a>)" % (link.get("href"), link.text))
+                id = (tag.get('id'))[8:]
 
-        #item_data = soup.find_all("ul", {"class": "products"})
+                title = soup3.title.string
+                cart = "http://raysoles.org/cart/?add-to-cart=" + id
+                print(cart)
+                print(title)
 
-        #print(item_data)
+                api.update_status("New item: " + title + ". Add to cart: " + cart + " (" + str(randint(1, 300)) + ")")
+
+
 
 
 
