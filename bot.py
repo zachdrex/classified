@@ -35,11 +35,11 @@ for tag in soup.find_all('a', {'class':'woocommerce-LoopProduct-link'}, href=Tru
     data1 = r1.text
     soup2 = BeautifulSoup(data1, "html.parser")
 
-    for tag in soup2.find_all(class_="product"):
+    for tag2 in soup2.find_all(class_="product"):
         print(tag.get('id'))
 
 
-        id = (tag.get('id'))[8:]
+        id = (tag2.get('id'))[8:]
 
         title = soup2.title.string
         cart = "http://raysoles.org/cart/?add-to-cart=" + id

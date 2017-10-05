@@ -4,7 +4,6 @@ from random import *
 import tweepy
 import requests
 import time
-import difflib
 
 from pip._vendor.distlib.compat import raw_input
 
@@ -53,13 +52,13 @@ while True:
             data3 = r3.text
             soup3 = BeautifulSoup(data1, "html.parser")
 
-            for tag in soup3.find_all(class_="product"):
+            for tag2 in soup3.find_all(class_="product"):
                 print(tag.get('id'))
 
-                id = (tag.get('id'))[8:]
+                id1 = (tag2.get('id'))[8:]
 
                 title = soup3.title.string
-                cart = "http://raysoles.org/cart/?add-to-cart=" + id
+                cart = "http://raysoles.org/cart/?add-to-cart=" + id1
                 print(cart)
                 print(title)
 
