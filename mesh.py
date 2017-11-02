@@ -20,7 +20,7 @@ params = (
 
 start_number = 300000
 for i in range(start_number-1,0,-1):
-    time.sleep(5)
+    time.sleep(1)
     print(i)
     stock_json_raw = requests.get('https://commerce.mesh.mx/stores/footpatrol/products/' + str(i), headers=headers1, params=params).text.strip()
     print(stock_json_raw)
